@@ -19,26 +19,20 @@ namespace Examen1
                     string[] ren = read.Split('\n');
                     dataGridView1.Columns.Clear();
                     string[] x = ren[0].Split(',');
-                    dataGridView1.Columns.Add("RFC", "RFC");
-                    dataGridView1.Columns.Add("Promedio", "Promedio");
-                    dataGridView1.Columns.Add("Edad", "Edad");
-                    dataGridView1.Columns.Add("Sexo", "Sexo");
-                    for (int i = 0; i < x.Length; i++)
-                    {
-                        if (x[i] != "RFC" && x[i] != "Promedio")
-                        {
-                            dataGridView1.Columns.Add(x[i].Trim(), x[i].Trim());
-                        }
-                    }
-                    for (int i = 0; i < ren.Length; i++)
+                dataGridView1.Columns.Add("CURP", "CURP");
+                dataGridView1.Columns.Add("Promedio", "Promedio");
+                dataGridView1.Columns.Add("Edad", "Edad");
+                dataGridView1.Columns.Add("Sexo", "Sexo");
+                
+                for (int i = 0; i < ren.Length; i++)
                     {
                         string[] resultados = ren[i].Split(',');
                         if (resultados.Length == x.Length)
                         {
                             string curp = resultados[0].Trim();
                             string prom = resultados[1].Trim();
-                            int edad = CalcularEdad(curp);
-                            string sexo = DeterminarSexo(curp);
+                            int edad = Edad(curp);
+                            string sexo = Sexo(curp);
                             string[] col = new string[dataGridView1.Columns.Count];
                             col[0] = curp; 
                             col[1] = prom; 
@@ -59,7 +53,7 @@ namespace Examen1
             }
 
         }
-        private int CalcularEdad(string curp)
+        public static int Edad(string curp)
         {
             int edad;
             DateTime x = DateTime.Now;
@@ -85,7 +79,7 @@ namespace Examen1
             return edad;
         }
 
-        private string DeterminarSexo(string curp)
+        public static string Sexo(string curp)
         {
             String sexo = curp.Substring(10, 1);
             if (sexo == "H"){
